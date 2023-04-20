@@ -149,7 +149,7 @@ python scripts/vehicle_seg.py
 
 Download pretrained weights:
 ```bash
-mkdir CamRaDepth/checkpoints && cd CamRaDepth/checkpoints
+mkdir src/checkpoints && cd src/checkpoints
 wget  https://syncandshare.lrz.de/dl/fi17pZyWBpZf38uxQ5XcS3/checkpoints.zip
 unzip checkpoints.zip -d ..
 ```

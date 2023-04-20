@@ -201,17 +201,17 @@ unzip checkpoints.zip -d ..
 **Note:** Training does only make sence with the full dataset as the mini does not provide enough data for meaningful training.
 
 ```bash
-python main/runner.py --run_mode train --model base --save_model --batch_size 2 --desired_batch_size 6 --num_steps 60000 --run_name 'base_batch(2-6)' --split <created_split_for_the_full_dataset.npy>
+python src/main/runner.py --run_mode train --model base --save_model --batch_size 2 --desired_batch_size 6 --num_steps 60000 --run_name 'base_batch(2-6)' --split <created_split_for_the_full_dataset.npy>
 ```
 
 ### Evaluation (inference) Example Command
 **With Full nuScenes Dataset:**
 ```bash
-python main/runner.py --run_mode test --checkpoint checkpoints/Base_TL.pth --model base
+python src/main/runner.py --run_mode test --checkpoint checkpoints/Base_TL.pth --model base
 ```
 **With nuScenes Mini:**
 ```bash
-python main/runner.py --run_mode test --checkpoint checkpoints/Base_TL.pth --model base --split <your_mini_split_path> --mini_dataset
+python src/main/runner.py --run_mode test --checkpoint checkpoints/Base_TL.pth --model base --split <your_mini_split_path> --mini_dataset
 ```
 
 **Note:** the `mini_dataset` argument is a must for the mini split, as the dataloader will take the entire split is a test set.

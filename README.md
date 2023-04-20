@@ -149,7 +149,7 @@ python scripts/vehicle_seg.py
 
 Download pretrained weights:
 ```bash
-mkdir CamRaDepth/checkpoints && cd CamRaDepth/checkpoints
+mkdir src/checkpoints && cd src/checkpoints
 wget  https://syncandshare.lrz.de/dl/fi17pZyWBpZf38uxQ5XcS3/checkpoints.zip
 unzip checkpoints.zip -d ..
 ```
@@ -207,11 +207,11 @@ python main/runner.py --run_mode train --model base --save_model --batch_size 2 
 ### Evaluation (inference) Example Command
 **With Full nuScenes Dataset:**
 ```bash
-python main/runner.py --run_mode test --checkpoint checkpoints/Base_TL.pth --model base
+python main/runner.py --run_mode test --checkpoint src/checkpoints/Base_TL.pth --model base
 ```
 **With nuScenes Mini:**
 ```bash
-python main/runner.py --run_mode test --checkpoint checkpoints/Base_TL.pth --model base --split <your_mini_split_path> --mini_dataset
+python main/runner.py --run_mode test --checkpoint src/checkpoints/Base_TL.pth --model base --split <your_mini_split_path> --mini_dataset
 ```
 
 **Note:** the `mini_dataset` argument is a must for the mini split, as the dataloader will take the entire split is a test set.

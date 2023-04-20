@@ -1,0 +1,12 @@
+nuscenes-devkit==1.1.9
+matplotlib==3.6.1
+PyYAML==6.0
+networkx==2.8.7
+torchmetrics==0.10.2
+scikit-image==0.19.3
+tensorboard==2.11.2
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.1
+tensorboardX==2.5.1
+torchinfo==1.7.1
+timm==0.6.12

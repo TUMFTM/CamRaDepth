@@ -145,7 +145,7 @@ if args.num_steps is not None:
 if args.checkpoint is not None:
     print(f"{args.hashtags_prefix} Auto set checkpoint to {args.checkpoint}")
 
-args.split = Path("data") / args.split
+args.split = Path(args.split)
 assert args.split.exists(), f"Split file {args.split} does not exist"
 
 if args.output_dir is not None:

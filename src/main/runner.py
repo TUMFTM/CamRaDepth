@@ -129,7 +129,7 @@ class Trainer:
                 args.learning_rate = state.get("lr", args.learning_rate)
                 print(f"{args.hashtags_prefix} Loaded checkpoint from {args.checkpoint}")
             else:
-                raise ValueError("Checkpoint not found!")   
+                raise ValueError(f"Checkpoint not found at {os.path.abspath(args.checkpoint)}!")   
         
         self.model = self.model.to(self.device)
         if args.distributed:

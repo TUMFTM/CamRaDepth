@@ -24,6 +24,8 @@ import matplotlib.pyplot as plt
 import torch
 import torch.backends.cudnn as cudnn
 
+from helper import create_tqdm_bar
+
 import _init_paths
 from segmentation.config import config, update_config
 from segmentation.model import build_segmentation_model_from_cfg
@@ -132,7 +134,8 @@ def main():
     N = len(input_list)
     
     with torch.no_grad():
-        for i, fname in enumerate(input_list):
+        loop = create_tqdm_bar(input_list)
+        for i, fname in loop:
             if isinstance(fname, str):
                 # load image
                 raw_image = read_image(fname, 'RGB')
@@ -165,7 +168,6 @@ def main():
             vehicle_seg = reduce(np.logical_or, [semantic_pred==13, semantic_pred==14, semantic_pred==15])                            
             path_seg = fname[:-6] + 'mseg.npy' 
             np.save(path_seg, vehicle_seg)            
-            print('compute segmentation %d/%d' % ( i, N ) )
             
 
 

@@ -9,6 +9,7 @@ from pyquaternion import Quaternion
 from nuscenes.nuscenes import NuScenes
 from nuscenes.utils.geometry_utils import transform_matrix
 
+from helper import create_tqdm_bar
  
 def get_intrinsic_matrix(nusc, cam_token):       
     cam_data = nusc.get('sample_data', cam_token)
@@ -65,8 +66,8 @@ if __name__ == '__main__':
     dir_data_out = join(args.dir_data, 'prepared_data')
     sample_indices = torch.load(join(args.dir_data,'data_split.tar'))['all_indices'] 
          
-    ct = 0         
-    for sample_idx in sample_indices:
+    loop = create_tqdm_bar(sample_indices)         
+    for ct, sample_idx in loop:
 
         cam_token = nusc.sample[sample_idx]['data']['CAM_FRONT']
         cam_data = nusc.get('sample_data', cam_token)
@@ -82,6 +83,5 @@ if __name__ == '__main__':
             
         np.savez(join(dir_data_out, '%05d_matrix.npz' % sample_idx), K=K, T=T)    
            
-        ct += 1
-        print('Save matrix %d/%d' % ( ct, len(sample_indices) ) )
+       
         

@@ -13,7 +13,7 @@ import torch
 import numpy as np
 
 from nuscenes.nuscenes import NuScenes
-
+from helper import create_tqdm_bar
 
 def downsample_im(im, downsample_scale, y_cutoff):
     h_im, w_im = im.shape[0:2]        
@@ -60,8 +60,8 @@ if __name__ == '__main__':
     # sample_indices = torch.load(join(args.dir_data,'data_split.tar'))['clear_day_sample_indices']
     sample_indices = torch.load(join(args.dir_data,'data_split.tar'))['all_indices']
          
-    ct = 0         
-    for sample_idx in sample_indices:
+    loop = create_tqdm_bar(sample_indices, desc="Progress")         
+    for ct, sample_idx in loop:
 
         cam_token = nusc.sample[sample_idx]['data']['CAM_FRONT']
         cam_data = nusc.get('sample_data', cam_token)
@@ -86,8 +86,6 @@ if __name__ == '__main__':
             io.imsave(join(dir_data_out, '%05d_im.jpg' % sample_idx), im)
             io.imsave(join(dir_data_out, '%05d_im_next.jpg' % sample_idx), im_next)          
            
-        ct += 1
-        print('Save image %d/%d' % ( ct, len(sample_indices) ) )
         
 
     

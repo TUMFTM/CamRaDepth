@@ -13,6 +13,7 @@ from os.path import join
 
 import torch
 from PIL import Image
+from helper import create_tqdm_bar
 
 raft_path = join(os.path.dirname(__file__), '..', 'external', 'RAFT', 'core')
 if raft_path not in sys.path:
@@ -66,8 +67,8 @@ if __name__ == '__main__':
     if end_idx == None or end_idx > N - 1 :
         end_idx = N - 1
         
-    ct = 0
-    for sample_idx in range(start_idx, end_idx + 1):
+    loop = create_tqdm_bar(range(start_idx, end_idx + 1))
+    for ct, sample_idx in loop:
         
         f_im1 = im_list[sample_idx]
         
@@ -91,6 +92,5 @@ if __name__ == '__main__':
             
             np.save(path_flow, flow)
         
-        ct += 1
-        print('compute flow %d/%d' % ( ct, N ) )
+        
     

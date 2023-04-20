@@ -13,7 +13,7 @@ from nuscenes.nuscenes import NuScenes
 
 import _init_paths
 from fuse_radar import merge_selected_radar, cal_depthMap_flow, radarFlow2uv
-
+from helper import create_tqdm_bar
 
 if __name__ == '__main__':    
     parser = argparse.ArgumentParser()
@@ -50,8 +50,8 @@ if __name__ == '__main__':
     
     frm_range = [0,4]
     
-    ct = 0
-    for sample_idx in sample_indices[start_idx: end_idx+1]:
+    loop = create_tqdm_bar(sample_indices[start_idx: end_idx+1])
+    for ct, sample_idx in loop:
         
         start = timer()
         matrix = np.load(join(dir_data_out, '%05d_matrix.npz' % sample_idx))
@@ -66,11 +66,8 @@ if __name__ == '__main__':
         
         np.save(join(dir_data_out, '%05d_radar.npy' % sample_idx), radar_data) 
          
-        ct += 1
-        print('compute depth %d/%d' % ( ct, end_idx - start_idx + 1 ) )
-        
         end = timer()
         t = end-start     
-        print('Time used: %.1f s' % t)
+        loop.set_postfix(Time_used= '%.1f s' % t)
         
         

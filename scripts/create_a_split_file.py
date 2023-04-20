@@ -11,7 +11,7 @@ def save_list(img_filename_list, radar_filename_list, filt_radar_filename_list, 
 
     des_length = len(img_filename_list)
     assert len(gt_filename_list) >= des_length and len(radar_filename_list) >= des_length and len(filt_radar_filename_list) >= des_length  \
-        and len(mseg_filename_list) >= des_length and len(im_uv_filename_list) >= des_length and len(rad_vel_filename_list) >= des_length
+        and len(mseg_filename_list) >= des_length and len(im_uv_filename_list) >= des_length and len(rad_vel_filename_list) >= des_length, f"Length is {des_length}"
 
     if len(img_filename_list) == 0 or len(gt_filename_list) == 0:
         print("List(s) empty!")
@@ -62,7 +62,7 @@ def create_file_list(dir_data, file_name="new_split"):
     save_list(img_filename_list, radar_filename_list, filt_radar_filename_list, mseg_filename_list,
                 im_uv_filename_list, rad_vel_filename_list, gt_filename_list, file_name=file_name)
     end = time.time()
-    print("with_rain: ", end - start, " seconds")
+    print("Duration: ", end - start, " seconds")
     
     
 if __name__ == '__main__':

@@ -60,7 +60,6 @@ Clone [RAFT](https://github.com/princeton-vl/RAFT.git) to `external/` <br/>
 and run `cd external/RAFT && ./download_models.sh`
 
 Clone [Panoptic-DeepLab](https://github.com/bowenc0221/panoptic-deeplab) to `external/` <br/>
-**Hint:** Replacing `torchvision.models.utils` by `from torch.hub import load_state_dict_from_url` can fix errors here.
 
 We use the data preprocessing pipeline from [RC-PDA](https://github.com/longyunf/rc-pda)
 
@@ -94,6 +93,15 @@ Adjust `DATA_DIR` and `DATA_VERSION` in [precprocess_data.sh](scripts/preprocess
 ```bash
 ./scripts/preprocess_data.sh
 ```
+
+**Hint:** The external repos are using deprecated functions, and might cause an error. Replacing `torchvision.models.utils` by `from torch.hub import load_state_dict_from_url` can fix them.<br/>
+Files:<br/>
+ `external/panoptic-deeplab/segmentation/model/backbone/hrnet.py`<br/>
+ `external/panoptic-deeplab/segmentation/model/backbone/mnasnet.py`<br/>
+ `external/panoptic-deeplab/segmentation/model/backbone/mobilenet.py`<br/>
+ `external/panoptic-deeplab/segmentation/model/backbone/resnet.py`<br/>
+ `external/panoptic-deeplab/segmentation/model/backbone/xception.py`
+
 
 ### 5. Generate Quasi-Ground-Truth Semantic Segmentation
 Use `external/mseg-semantic` from [mseg](https://github.com/mseg-dataset/mseg-semantic) to generate semantic labels for the image:

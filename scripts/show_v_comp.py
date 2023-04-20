@@ -11,6 +11,7 @@ from timeit import default_timer as timer
 
 import torch
 from nuscenes.nuscenes import NuScenes
+from helper import create_tqdm_bar
 
 import _init_paths
 from fuse_radar import merge_selected_radar, cal_depthMap_flow, radarFlow2uv
@@ -87,8 +88,8 @@ if __name__=='__main__':
     #frame 0-4 = 5 sweeps
     frm_range = [0,4]
     
-    ct = 0
-    for sample_idx in sample_indices[start_idx: end_idx+1]:
+    loop = create_tqdm_bar(sample_indices[start_idx: end_idx+1])
+    for ct, sample_idx in loop:
 
         cam_token = nusc.sample[sample_idx]['data']['CAM_FRONT']
         cam_data = nusc.get('sample_data', cam_token)
@@ -107,9 +108,7 @@ if __name__=='__main__':
             dir_data_out = os.path.join(args.dir_data, 'prepared_data') 
             # np.save(join(dir_data_out, '%05d_rain_rad_vel.npy' % sample_idx), v_comp_map1)
             np.save(join(dir_data_out, '%05d_rad_vel.npy' % sample_idx), v_comp_map1)         
-           
-            ct += 1
-            print('Save Numpy Array %d/%d' % ( ct, len(sample_indices) ) )
+            loop.set_postfix({"saved": True})
 
         if show:
             show(v_comp_map1, im)

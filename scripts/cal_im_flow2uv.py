@@ -6,6 +6,8 @@ import torch
 from os.path import join
 from skimage.transform import resize
 
+from helper import create_tqdm_bar
+
 def flow2uv(flow, K, downsample_scale=2, y_cutoff=34):
     '''
     uv_map: h x w x 2
@@ -51,8 +53,8 @@ if __name__ == '__main__':
     downsample_scale = 2
     y_cutoff = 34
     
-    ct = 0    
-    for f_flow in flow_list:
+    loop = create_tqdm_bar(flow_list, desc="Progress")
+    for ct, f_flow in loop:
         flow = np.load(f_flow)
         
         matrix = np.load(f_flow[:-8] + 'matrix.npz')
@@ -61,7 +63,4 @@ if __name__ == '__main__':
         uv_map = flow2uv(flow, K, downsample_scale, y_cutoff)
         
         np.save(f_flow[:-8] + 'im_uv.npy', uv_map)
-        
-        ct += 1
-        print('Processing %d/%d' % ( ct, N ) )
         

@@ -12,6 +12,7 @@ import torch
 from timeit import default_timer as timer
 
 from nuscenes.nuscenes import NuScenes
+from helper import create_tqdm_bar
 
 import _init_paths
 from fuse_lidar import merge_lidar, get_tracks_forward, update_key_tracks, update_non_key_tracks, cal_depthMap_flow, filter_occlusion, lidarFlow2uv, filter_occlusion_by_bbox
@@ -95,8 +96,8 @@ if __name__ == '__main__':
     box_tracks = get_tracks_scene(nusc, start_sample_idx)
     current_scene_token = nusc.sample[start_sample_idx]['scene_token']
         
-    ct = 0
-    for sample_idx in sample_indices[start_idx: end_idx+1]:
+    loop = create_tqdm_bar(sample_indices[start_idx: end_idx+1])
+    for ct, sample_idx in loop:
         
         start = timer()
         
@@ -107,7 +108,7 @@ if __name__ == '__main__':
         K = matrix['K']
                        
         if nusc.sample[sample_idx]['scene_token'] != current_scene_token:
-            print('New scene')
+            # print('New scene')
             current_scene_token = nusc.sample[sample_idx]['scene_token']
             box_tracks = get_tracks_scene(nusc, sample_idx)
         
@@ -136,11 +137,10 @@ if __name__ == '__main__':
         np.save(join(dir_data_out, '%05d_gt.npy' % sample_idx), gt)        
         np.save(join(dir_data_out, '%05d_msk_lh.npy' % sample_idx), msk_map_low_h) 
                 
-        ct += 1
-        print('compute depth %d/%d' % ( ct, end_idx - start_idx + 1 ) )
+        
         
         end = timer()
         t = end-start     
-        print('Time used: %.1f s' % t)
+        loop.set_postfix(Time_used='%.1f s' % t)
         
     

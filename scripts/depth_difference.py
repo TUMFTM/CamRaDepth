@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import glob
 import os
 import argparse
+from helper import create_tqdm_bar
 
 def sid_depth_thresh(input_depth):
 
@@ -47,8 +48,8 @@ def save(dir_data):
     else:
         print("Error: Not same list length")
 
-    ct = 0
-    for idx in range(len(list_pairs)):
+    loop = create_tqdm_bar(range(len(list_pairs)))
+    for ct, idx in loop:
 
         radar_path = list_pairs[idx][0]
         radar = np.load(radar_path)
@@ -61,8 +62,7 @@ def save(dir_data):
         sample_idx = file_name[:-7]
         path_seg = dir_data + "/prepared_data/" + sample_idx + "_radar_filtered.npy"
         # print(path_seg)
-        ct += 1
-        print('Save Numpy Array %d/%d' % ( ct, len(radar_list) ) )
+        
         np.save(path_seg, filtered_radar)
 
 def show(dir_data, idx):

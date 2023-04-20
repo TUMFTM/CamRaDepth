@@ -120,6 +120,9 @@ cd mseg-semantic && pip install -r requirements.txt
 pip install -e .
 cd ..
 ```
+  
+**Note**: We now assume that the current working directory is `CamRaDepth/externals/mseg-semantic`
+  
 change line 23 of file 'mseg-semantic/mseg_semantic/utils/img_path_utils.py' to:
 
 ```bash
@@ -128,13 +131,12 @@ suffix_fpaths = glob.glob(f"{jpg_dir}/*_im.{suffix}")
 
 Run inference with the correct data source directory
 ```bash
-cd external/mseg/mseg-semantic
 CONFIG_PATH="mseg_semantic/config/test/default_config_360_ms.yaml"
 
 python -u mseg_semantic/tool/universal_demo.py \
   --config="$CONFIG_PATH" \
   model_name mseg-3m \
-  model_path ../mseg-3m.pth input_file ../../../../nuscenes_mini/prepared_data/
+  model_path mseg-3m.pth input_file ../../../nuscenes_mini/prepared_data/
 ```
 
 Change and combine the labels for the right format

@@ -26,7 +26,8 @@ def save_list(img_filename_list, radar_filename_list, filt_radar_filename_list, 
                                             rad_vel_filename_list,
                                             gt_filename_list))
             
-            path = Path("../CamRaDepth/data")
+            path = Path("src/data")
+            assert path.exists(), "Please run this script from the CamRaDepth directory"
             os.makedirs(path, exist_ok=True)
             path = path / file_name
             np.save(path, list_with_all_files)
@@ -44,7 +45,8 @@ def create_file_list(dir_data, file_name="new_split"):
     """
     start = time.time()
     dir_data = os.path.join(dir_data, "prepared_data/")
-    print(dir_data)
+    print("Looking for data in: ", os.path.abspath(dir_data))
+    
     img_filename_list = glob.glob(dir_data + '*_im.jpg')
     img_filename_list.sort()
     radar_filename_list = glob.glob(dir_data + '*_radar.npy')
@@ -68,9 +70,11 @@ def create_file_list(dir_data, file_name="new_split"):
 if __name__ == '__main__':
     
     argparse = argparse.ArgumentParser()
-    argparse.add_argument('--dir_data', type=str, default='data/prepard_data', help='path to the data')
+    argparse.add_argument('--dir_data', type=str, default='../nuscenes_mini/', help='path to the data')
     argparse.add_argument('--file_name', type=str, default='new_split', help='name of the file')
     args = argparse.parse_args()
+    
+    assert "CamRaDepth" == os.getcwd().split("/")[-1], "Please run this script from the CamRaDepth directory"
     
     create_file_list(args.dir_data, args.file_name)
     

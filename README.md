@@ -271,11 +271,15 @@ Germany
 <summary> <h2> 📃 Reference </h2> </summary>
 
 ``` bib
-@inproceedings{camradepth2023,
-  title={CamRaDepth: Semantic Guided Depth Estimation Using Monocular Camera and Sparse Radar},
-  author={Sauerbeck, Florian and Halperin, Dan and Connert, Lukas and Betz, Johannes},
-  booktitle={UNDER REVIEW},
-  year={2023}
+@ARTICLE{sauerbeck2023camradepth,
+  author={\textbf{Sauerbeck, Florian} and Halperin, Dan and Connert, Lukas and Betz, Johannes},
+  journal={IEEE Sensors Journal}, 
+  title={CamRaDepth: Semantic Guided Depth Estimation Using Monocular Camera and Sparse Radar for Automotive Perception}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={},
+  doi={10.1109/JSEN.2023.3321886}
 }
 ```
 

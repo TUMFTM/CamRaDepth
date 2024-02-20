@@ -272,7 +272,7 @@ Germany
 
 ``` bib
 @ARTICLE{sauerbeck2023camradepth,
-  author={\textbf{Sauerbeck, Florian} and Halperin, Dan and Connert, Lukas and Betz, Johannes},
+  author={Sauerbeck, Florian and Halperin, Dan and Connert, Lukas and Betz, Johannes},
   journal={IEEE Sensors Journal}, 
   title={CamRaDepth: Semantic Guided Depth Estimation Using Monocular Camera and Sparse Radar for Automotive Perception}, 
   year={2023},

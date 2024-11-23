@@ -149,10 +149,12 @@ python scripts/vehicle_seg.py
 <details>
 <summary> <h2> 📥 Download Pretrained Weights </h2> </summary>
 
-Download pretrained weights:
+Download pretrained weights (from Google Drive, we suggest using gdown):  
+(link: https://drive.google.com/file/d/1H60SUhrirkkIK9kf0qBhbg_Ut0Cr5n7X/view?usp=drive_link)
 ```bash
+pip install gdown
 mkdir src/checkpoints && cd src/checkpoints
-wget  https://syncandshare.lrz.de/dl/fi17pZyWBpZf38uxQ5XcS3/checkpoints.zip
+gdown 1H60SUhrirkkIK9kf0qBhbg_Ut0Cr5n7X
 unzip checkpoints.zip -d ..
 ```
 **Note 1**: "FS" - From scratch, "TL" - Transfer learning scheme. <br> 
